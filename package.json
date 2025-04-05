@@ -1,0 +1,41 @@
+{
+  "name": "bun-react-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.tsx",
+  "module": "src/index.tsx",
+  "scripts": {
+    "build": "bun run build.ts",
+    "db:clean": "docker volume rm -f zero_reproduction_zero_pgdata && rm -rf \"${ZERO_REPLICA_FILE:-dev/null}\"*",
+    "db:down": "docker compose -p zero_reproduction -f docker/docker-compose.yml down",
+    "db:up": "docker compose -p zero_reproduction -f docker/docker-compose.yml up",
+    "dev": "bun --hot src/index.tsx",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "clean": "rm -rf bun.lock node_modules ",
+    "push": "drizzle-kit push",
+    "seed": "bun src/seed.ts",
+    "start": "NODE_ENV=production bun src/index.tsx",
+    "studio": "drizzle-kit studio",
+    "zero-cache": "zero-cache-dev -p ./src/schema.zero.ts --log-level debug"
+  },
+  "dependencies": {
+    "@rocicorp/zero": "^0.18.2025040300",
+    "bun-plugin-tailwind": "^0.0.14",
+    "drizzle-orm": "^0.41.0",
+    "drizzle-zero": "^0.5.4",
+    "react": "^19",
+    "react-dom": "^19",
+    "tailwindcss": "^4.0.6"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.30.6"
+  },
+  "trustedDependencies": [
+    "@rocicorp/zero-sqlite3"
+  ]
+}
