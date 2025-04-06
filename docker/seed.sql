@@ -7,12 +7,12 @@ CREATE SCHEMA IF NOT EXISTS "app-1";
 CREATE SCHEMA IF NOT EXISTS "app-2";
 
 -- Seed data into the user table
-CREATE TABLE IF NOT EXISTS public."user" (
+CREATE TABLE IF NOT EXISTS users (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
-INSERT INTO public."user" (id, name) VALUES
+INSERT INTO users (id, name) VALUES
 ('user-1', 'Alice'),
 ('user-2', 'Bob'),
 ('user-3', 'Charlie');
@@ -40,4 +40,4 @@ INSERT INTO "app-2".posts (id, title) VALUES
 ('post-2', 'Second post'),
 ('post-3', 'Third post');
 
-CREATE PUBLICATION zero_data FOR TABLES IN SCHEMA "app-1", TABLES IN SCHEMA "app-2", TABLES IN SCHEMA "public";
+-- CREATE PUBLICATION zero_data FOR TABLES IN SCHEMA "app-1", TABLES IN SCHEMA "app-2", TABLES IN SCHEMA "public";

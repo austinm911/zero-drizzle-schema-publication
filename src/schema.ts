@@ -10,7 +10,7 @@ import * as pg from "drizzle-orm/pg-core";
  */
 
 
-export const user = pg.pgTable("user", {
+export const users = pg.pgTable("users", {
     id: pg.text("id").primaryKey(),
     name: pg.text("name").notNull(),
   });

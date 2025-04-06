@@ -4,7 +4,7 @@ import * as drizzleSchema from "./schema";
 
 export const schema = createZeroSchema(drizzleSchema, {
   tables: {
-      user: {
+      users: {
         id: true,
         name: true,
       },
@@ -27,7 +27,7 @@ type Schema = typeof schema;
 export const permissions = definePermissions<{}, Schema>(schema, () => {
   return {
     posts: ANYONE_CAN_DO_ANYTHING,
-    user: ANYONE_CAN_DO_ANYTHING,
+    users: ANYONE_CAN_DO_ANYTHING,
     tasks: ANYONE_CAN_DO_ANYTHING,
   };
 });
