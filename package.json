@@ -7,9 +7,10 @@
   "module": "src/index.tsx",
   "scripts": {
     "build": "bun run build.ts",
-    "db:clean": "docker volume rm -f zero_reproduction_pgdata && rm -rf \"${ZERO_REPLICA_FILE:-dev/null}\"*",
+    "db:clean": "docker volume rm -f zero_reproduction_pgdata && bun delete-replica",
     "db:down": "docker compose -p zero_reproduction -f docker/docker-compose.yml down",
     "db:up": "docker compose -p zero_reproduction -f docker/docker-compose.yml up",
+    "delete-replica": "source .env && rm -rf \"${ZERO_REPLICA_FILE:-dev/null}\"*",
     "dev": "bun --hot src/index.tsx",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
