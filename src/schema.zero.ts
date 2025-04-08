@@ -1,33 +1,48 @@
-import { ANYONE_CAN_DO_ANYTHING, definePermissions } from "@rocicorp/zero";
-import { createZeroSchema } from "drizzle-zero";
-import * as drizzleSchema from "./schema";
+import {
+  ANYONE_CAN_DO_ANYTHING,
+  boolean,
+  createSchema,
+  definePermissions,
+  PermissionsConfig,
+  string,
+  table
+} from "@rocicorp/zero";
+import { AuthData } from "node_modules/@rocicorp/zero/out/zero-client/src/client/replicache-types";
 
-export const schema = createZeroSchema(drizzleSchema, {
-  tables: {
-      users: {
-        id: true,
-        name: true,
-      },
-      tasks: {
-        id: true,
-        title: true,
-        completed: true,
-      },
-      posts: {
-        id: true,
-        title: true,
-        content: true,
-      },
-    
-  },
+const users = table("users")
+    .columns({
+        id: string(),
+        name: string(),
+    })
+    .primaryKey("id");
+
+const tasks = table("tasks")
+    .from("app-1.tasks")
+    .columns({
+        id: string(),
+        title: string(),
+        completed: boolean(),
+    })
+    .primaryKey("id");
+
+const posts = table("posts")
+    .from("app-2.posts")
+    .columns({
+        id: string(),
+        title: string(),
+    })
+    .primaryKey("id");
+
+export const schema = createSchema({
+    tables: [users, tasks, posts],
 });
 
-type Schema = typeof schema;
+export type Schema = typeof schema;
 
-export const permissions = definePermissions<{}, Schema>(schema, () => {
-  return {
-    posts: ANYONE_CAN_DO_ANYTHING,
-    users: ANYONE_CAN_DO_ANYTHING,
-    tasks: ANYONE_CAN_DO_ANYTHING,
-  };
+export const permissions = definePermissions<undefined, Schema>(schema, () => {
+    return {
+        users: ANYONE_CAN_DO_ANYTHING,
+        tasks: ANYONE_CAN_DO_ANYTHING,
+        posts: ANYONE_CAN_DO_ANYTHING,
+    } satisfies PermissionsConfig<AuthData, Schema>;
 });

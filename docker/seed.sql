@@ -40,4 +40,4 @@ INSERT INTO "app-2".posts (id, title) VALUES
 ('post-2', 'Second post'),
 ('post-3', 'Third post');
 
--- CREATE PUBLICATION zero_data FOR TABLES IN SCHEMA "app-1", TABLES IN SCHEMA "app-2", TABLES IN SCHEMA "public";
+CREATE PUBLICATION zero_data FOR TABLES IN SCHEMA "app-1", TABLES IN SCHEMA "app-2", TABLES IN SCHEMA "public";
